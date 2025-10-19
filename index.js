@@ -10,7 +10,9 @@ app.use(express.json());
 // Registrar datos
 app.post('/api/reportes', async (req, res) => {
   try {
-    const { unidad, no_ecom, usuario, destino, salida, entrada, observaciones, fecha } = req.body;
+    const { unidad, no_ecom, usuario, destino, salida, entrada, observaciones } = req.body;
+    const fecha = new Date().toISOString().split('T')[0]; // formato YYYY-MM-DD
+
     await pool.query(
       'INSERT INTO reportes (unidad, no_ecom, usuario, destino, salida, entrada, observaciones, fecha) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
       [unidad, no_ecom, usuario, destino, salida, entrada, observaciones, fecha]
